@@ -26,6 +26,7 @@ function flatten (src) {
 					includes = true;
                     lastlist[prop] = obj[prop];
 					console.log(lastlist);
+                    recursion(obj[prop], accum);
 				}
 				else {
                     acc[prop] = obj[prop];
@@ -35,7 +36,7 @@ function flatten (src) {
 			if (includes) {
 				for (let p in lastlist) {
                     console.log(lastlist[p]);
-                    recursion(lastlist[p], accum);
+                    // recursion(lastlist[p], accum);
                 }
 				// recursion(last, accum);
 			}
