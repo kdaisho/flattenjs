@@ -14,20 +14,18 @@ function flatten (src) {
 	let last = '';
 	//let lastlist = [];
 	//const arr = [];
-	const bigarr = [];
+    const bigarr = [];
 	const accum = {};
 	function recursion (s, acc) {
 		let includes = false;
-		let lastlist = [];
-		let arr = [];
+		// let lastlist = [];
+		let lastlist = {};
 		s.forEach(function (obj) {
 			for (let prop in obj) {
 				if (Array.isArray(obj[prop])) {
 					includes = true;
-					//last = obj[prop];
-					console.log(obj[prop]);
-					lastlist.push(obj[prop]);
-					console.log(lastlist.length);
+                    lastlist[prop] = obj[prop];
+					console.log(lastlist);
 				}
 				else {
                     acc[prop] = obj[prop];
@@ -35,11 +33,10 @@ function flatten (src) {
 			}
 			//includes ? recursion(last, accum) : arr.push({...accum});
 			if (includes) {
-				lastlist.forEach((item) => {
-					console.log(item);
-					recursion(item, acc);
-				});
-
+				for (let p in lastlist) {
+                    console.log(lastlist[p]);
+                    recursion(lastlist[p], accum);
+                }
 				// recursion(last, accum);
 			}
 			else {
