@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flattenJs</title>
+</head>
+<body>
+<script src="data.js"></script>
+<script>
+
+function flatten (src) {
+	let last = '';
+	//let lastlist = [];
+	//const arr = [];
+	const bigarr = [];
+	const accum = {};
+	function recursion (s, acc) {
+		let includes = false;
+		let lastlist = [];
+		let arr = [];
+		s.forEach(function (obj) {
+			for (let prop in obj) {
+				if (Array.isArray(obj[prop])) {
+					includes = true;
+					//last = obj[prop];
+					console.log(obj[prop]);
+					lastlist.push(obj[prop]);
+					console.log(lastlist.length);
+				}
+				else {
+                    acc[prop] = obj[prop];
+				}
+			}
+			//includes ? recursion(last, accum) : arr.push({...accum});
+			if (includes) {
+				lastlist.forEach((item) => {
+					console.log(item);
+					recursion(item, acc);
+				});
+
+				// recursion(last, accum);
+			}
+			else {
+                //1
+				// arr.push({...acc});
+				// console.log(arr);
+                // bigarr.push(arr);
+
+                //2: good. returns one array with objects
+                bigarr.push({...acc});
+			}
+		});
+		//return arr;
+		return bigarr;
+	}
+
+	return recursion(src, accum);
+}
+
+console.log(flatten(data));
+//take out index 1 and last index
+
+//const output = flatten(data);
+</script>
+</body>
+</html>
