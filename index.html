@@ -7,13 +7,12 @@
     <title>flattenJs</title>
 </head>
 <body>
+
 <script src="data.js"></script>
 <script>
-
 function flatten (src) {
     const bigarr = [];
     let accum = {};
-    let count = 0;
 
     function cleaner (arr, len) {
         while(arr.length > len) {
@@ -29,51 +28,30 @@ function flatten (src) {
         let lastlist = {};
 
 		s.forEach(function (obj) {
-            count++;
-            console.log('count & obj', count, obj);
 			for (let prop in obj) {
                 includes = false;
-                console.log('first inner', obj);
 				if (Array.isArray(obj[prop])) {
                     includes = true;
-                    console.log('insertion', obj[prop]);
                     lastlist[prop] = obj[prop];
-                    // delete obj[prop];
-					console.log(lastlist);
 				}
 				else {
                     acc[prop] = obj[prop];
-                    // delete obj[prop];
-                    includes = false;
 				}
 			}
 			if (includes) {
-                includes = false;
 				for (let p in lastlist) {
-                    console.log(lastlist[p]);
-                    // if (Array.isArray(lastlist[p])) {
-                        recursion(lastlist[p], accum);
-                    // }
+                    recursion(lastlist[p], accum);
                 }
 			}
 			else {
-                includes = false;
-                console.log('saving', acc);
                 bigarr.push({...acc});
 			}
 		});
 		return bigarr;
 	}
-
     return cleaner(recursion(src, accum), src.length);
-    // return recursion(src, accum);
-
 }
-
-console.log(flatten(data1));
-//take out index 1 and last index
-
-//const output = flatten(data);
+console.log(flatten(data0));
 </script>
 </body>
 </html>
