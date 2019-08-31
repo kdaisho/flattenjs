@@ -1,4 +1,4 @@
-const data = [
+const data1 = [
 	{
 		a1: 'a',
 		a2: [
@@ -38,4 +38,41 @@ const data2 = [
 			{ x1: 'KI', x2: [ { y1: 'KU', y2: 'KE' } ], z3: [ { w1: 'KO', w2: 'SA'} ] }
 		]
 	}
+];
+
+const data0 = [
+    {
+	a1: 'platoon 1 leader',
+        a2: 'platoon 1 sergeant',
+	a_sections: [
+            {
+		b1: 'section 1B leader',
+                b2: 'section 1B member 1',
+                b3: 'section 1B member 2',
+		b_sections: [
+	            {
+			c1: 'section 1C leader',
+			c2: 'section 1C member'
+		    },
+		]
+            }
+	]
+    },
+    {
+	a1: 'platoon 2 leader',
+        a2: 'platoon 2 sergeant',
+	a_sections: [
+            {
+		b1: 'section 2B leader',
+                b2: 'section 2B member 1',
+                b3: 'section 2B member 2',
+		b_sections: [
+	            {
+			c1: 'section 2C leader',
+			c2: 'section 2C member'
+		    },
+		]
+            }
+	]
+    },
 ];

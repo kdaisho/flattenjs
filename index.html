@@ -15,10 +15,13 @@ function flatten (src) {
     let accum = {};
     let count = 0;
 
-    function cleaner (arr) {
-        return arr.filter((obj, index) => {
-            return index % 2 !== 0;
-        });
+    function cleaner (arr, len) {
+        while(arr.length > len) {
+            arr = arr.filter((obj, index) => {
+                return index % 2 !== 0;
+            });
+        }
+        return arr;
     }
 
 	function recursion (s, acc) {
@@ -62,12 +65,12 @@ function flatten (src) {
 		return bigarr;
 	}
 
-    return cleaner(recursion(src, accum));
+    return cleaner(recursion(src, accum), src.length);
     // return recursion(src, accum);
 
 }
 
-console.log(flatten(data));
+console.log(flatten(data1));
 //take out index 1 and last index
 
 //const output = flatten(data);
