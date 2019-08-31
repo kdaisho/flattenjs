@@ -11,11 +11,11 @@
 <script src="data.js"></script>
 <script>
 function flatten (src) {
-    const bigarr = [];
+    const result = [];
     let accum = {};
 
     function cleaner (arr, len) {
-        while(arr.length > len) {
+        while (arr.length > len) {
             arr = arr.filter((obj, index) => {
                 return index % 2 !== 0;
             });
@@ -23,31 +23,30 @@ function flatten (src) {
         return arr;
     }
 
-	function recursion (s, acc) {
+	function recursion (src, accum) {
 		let includes = false;
-        let lastlist = {};
+        let arrayCollection = {};
 
-		s.forEach(function (obj) {
+		src.forEach(function (obj) {
 			for (let prop in obj) {
-                includes = false;
 				if (Array.isArray(obj[prop])) {
                     includes = true;
-                    lastlist[prop] = obj[prop];
+                    arrayCollection[prop] = obj[prop];
 				}
 				else {
-                    acc[prop] = obj[prop];
+                    accum[prop] = obj[prop];
 				}
 			}
 			if (includes) {
-				for (let p in lastlist) {
-                    recursion(lastlist[p], accum);
+				for (let p in arrayCollection) {
+                    recursion(arrayCollection[p], accum);
                 }
 			}
 			else {
-                bigarr.push({...acc});
+                result.push({...accum});
 			}
 		});
-		return bigarr;
+		return result;
 	}
     return cleaner(recursion(src, accum), src.length);
 }
