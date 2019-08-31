@@ -11,50 +11,60 @@
 <script>
 
 function flatten (src) {
-	let last = '';
-	//let lastlist = [];
-	//const arr = [];
     const bigarr = [];
-	const accum = {};
+    let accum = {};
+    let count = 0;
+
+    function cleaner (arr) {
+        return arr.filter((obj, index) => {
+            return index % 2 !== 0;
+        });
+    }
+
 	function recursion (s, acc) {
 		let includes = false;
-		// let lastlist = [];
-		let lastlist = {};
+        let lastlist = {};
+
 		s.forEach(function (obj) {
+            count++;
+            console.log('count & obj', count, obj);
 			for (let prop in obj) {
+                includes = false;
+                console.log('first inner', obj);
 				if (Array.isArray(obj[prop])) {
-					includes = true;
+                    includes = true;
+                    console.log('insertion', obj[prop]);
                     lastlist[prop] = obj[prop];
+                    // delete obj[prop];
 					console.log(lastlist);
-                    recursion(obj[prop], accum);
 				}
 				else {
                     acc[prop] = obj[prop];
+                    // delete obj[prop];
+                    includes = false;
 				}
 			}
-			//includes ? recursion(last, accum) : arr.push({...accum});
 			if (includes) {
+                includes = false;
 				for (let p in lastlist) {
                     console.log(lastlist[p]);
-                    // recursion(lastlist[p], accum);
+                    // if (Array.isArray(lastlist[p])) {
+                        recursion(lastlist[p], accum);
+                    // }
                 }
-				// recursion(last, accum);
 			}
 			else {
-                //1
-				// arr.push({...acc});
-				// console.log(arr);
-                // bigarr.push(arr);
-
-                //2: good. returns one array with objects
+                includes = false;
+                console.log('saving', acc);
                 bigarr.push({...acc});
 			}
 		});
-		//return arr;
 		return bigarr;
 	}
 
-	return recursion(src, accum);
+    return cleaner(recursion(src, accum));
+    // return recursion(src, accum);
+
 }
 
 console.log(flatten(data));
